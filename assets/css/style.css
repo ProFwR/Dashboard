@@ -1050,7 +1050,7 @@ h6 {
   height: 174px;
   border: none;
   border-radius: 15px;
-  background-image: url('/assets/img/userBackgroumd.jpg');
+  background-image: url('../assets/img/userBackgroumd.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   
