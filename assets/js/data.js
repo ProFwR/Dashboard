@@ -15,14 +15,11 @@
 };
 
  // Initialize Firebase
- const app = initializeApp(firebaseConfig);
-
 firebase.initializeApp(firebaseConfig);
-// const card_dataRef = database.ref("Data/");
-// const chart_dataRef = database.ref("Data/chart");
+const app = initializeApp(firebaseConfig);
 const card_dataRef = firebase.database().ref("Data/");
 const chart_dataRef = firebase.database().ref("Data/chart");
-// const date_dataRef = firebase.database().ref("Data/Date");
+const usersRef = firebase.database().ref('Users');
 
 
 export function chartData() {
@@ -54,6 +51,25 @@ export function readCardData() {
       });
   });
 }
+
+export function getUserByName(name) {
+  return new Promise((resolve, reject) => {
+      usersRef.orderByChild('name').equalTo(name).once('value', (snapshot) => {
+          if (snapshot.exists()) {
+              const users = [];
+              snapshot.forEach((childSnapshot) => {
+                  users.push(childSnapshot.val());
+              });
+              resolve(users); 
+          } else {
+              resolve([]); 
+          }
+      }, (error) => {
+          reject(error);
+      });
+  });
+}
+
 
 
 
